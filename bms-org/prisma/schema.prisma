@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://admin:admin@localhost:5432/BMS?schema=BMS-ORG"
+}
+
+model Company {
+  id        String     @id @default(cuid())
+  name      String
+  email     String?
+  mobile    String?
+  address   String?
+  logo      String?
+  Employee  Employee[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt()
+}
+
+model Employee {
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  mobile    String   @unique()
+  password  String
+  avater    String?
+  address   String?
+  status    Status   @default(ACTIVE)
+  role      Role     @default(MEMBER)
+  company   Company  @relation(fields: [companyId], references: [id])
+  companyId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt()
+}
+
+enum Role {
+  ADMIN
+  OWNER
+  MEMBER
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+}
