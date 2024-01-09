@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://admin:admin@localhost:5432/BMS?schema=BMS-ORG"
+  url      = env("DATABASE_URL")
 }
 
 model Company {
