@@ -18,6 +18,23 @@ services:
       - bms-mq
     command: ["npm","run","dev"]
 
+  bms-org:
+    container_name: bms-org
+    build: 
+      context: ./bms-org
+      dockerfile: dockerfile.dev
+    volumes:
+      - ./bms-org:/app
+      - /app/node_modules
+    ports:
+      - 5002:5002
+    env_file:
+      - ./bms-org/.env
+    depends_on:
+      - bms-db
+      - bms-mq
+    command: ["npm","run","dev"]
+    
   bms-mq:
     container_name: bms-mq
     image: rabbitmq:3.12-management-alpine
@@ -32,7 +49,20 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
-      
+
+  bms-client:
+    container_name: bms-client
+    build: 
+      context: ./bms-client
+      dockerfile: dockerfile.dev
+    ports:
+      - 3000:3000
+    volumes:
+      - ./bms-client:/app
+      - /app/node_modules
+    command: ["npm","run","dev"]
+
+
   bms-db:
     container_name: bms-db
     image: postgres:16-alpine
