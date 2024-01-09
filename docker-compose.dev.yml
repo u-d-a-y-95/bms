@@ -44,12 +44,12 @@ services:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
 
-  # nginx:
-  #   container_name: nginx
-  #   build: 
-  #     context: .
-  #     dockerfile: Dockerfile.dev
-  #   volumes:
-  #     - ./nginx.dev.conf:/etc/nginx/nginx/conf
-  #   ports:
-  #     - 80:80
+  nginx:
+    container_name: bms-nginx
+    build: 
+      context: ./bms-gateway
+      dockerfile: dockerfile.dev
+    volumes:
+      - ./nginx.dev.conf:/etc/nginx/nginx/conf
+    ports:
+      - 80:80
