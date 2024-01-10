@@ -155,7 +155,7 @@ export const EmployeeModal = ({ opened, close, modal }: any) => {
               </Button>
               {modal.state !== "view" && (
                 <>
-                  <Button color="teal" type="submit">
+                  <Button type="submit">
                     {modal.state === "edit" ? "Update" : "Add"}
                   </Button>
                 </>

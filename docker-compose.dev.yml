@@ -34,6 +34,23 @@ services:
       - bms-db
       - bms-mq
     command: ["npm","run","dev"]
+
+  bms-product:
+    container_name: bms-product
+    build: 
+      context: ./bms-product
+      dockerfile: dockerfile.dev
+    volumes:
+      - ./bms-product:/app
+      - /app/node_modules
+    ports:
+      - 5003:5003
+    env_file:
+      - ./bms-product/.env
+    depends_on:
+      - bms-db
+      - bms-mq
+    command: ["npm","run","dev"]
     
   bms-mq:
     container_name: bms-mq
