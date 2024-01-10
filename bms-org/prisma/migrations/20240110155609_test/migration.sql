@@ -1,11 +1,14 @@
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('ADMIN', 'OWNER', 'MEMBER');
 
+-- CreateEnum
+CREATE TYPE "Status" AS ENUM ('ACTIVE', 'INACTIVE');
+
 -- CreateTable
 CREATE TABLE "Company" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
+    "email" TEXT,
     "mobile" TEXT,
     "address" TEXT,
     "logo" TEXT,
@@ -24,6 +27,7 @@ CREATE TABLE "Employee" (
     "password" TEXT NOT NULL,
     "avater" TEXT,
     "address" TEXT,
+    "status" "Status" NOT NULL DEFAULT 'ACTIVE',
     "role" "Role" NOT NULL DEFAULT 'MEMBER',
     "companyId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -31,9 +35,6 @@ CREATE TABLE "Employee" (
 
     CONSTRAINT "Employee_pkey" PRIMARY KEY ("id")
 );
-
--- CreateIndex
-CREATE UNIQUE INDEX "Company_email_key" ON "Company"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Employee_mobile_key" ON "Employee"("mobile");
