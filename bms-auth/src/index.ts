@@ -12,12 +12,14 @@ import express, {
 import { customError } from "./middlewares/customError";
 import { mq } from "./mq";
 import { rootRouter } from "./routes/rootRoute";
+import cookieParser from "cookie-parser";
 
 const app: Application = express();
 mq.connect();
 
 app.use(cors());
 app.use(json());
+app.use(cookieParser());
 app.use("/", rootRouter);
 
 app.get("/health", async (req: Request, res: Response, next: NextFunction) => {

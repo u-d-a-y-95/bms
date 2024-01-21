@@ -8,6 +8,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./../bms-auth:/app
+      - /app/node_module
     ports:
       - 5001:5001
     env_file:
