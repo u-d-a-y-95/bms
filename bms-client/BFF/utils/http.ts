@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "/api",
+  baseURL: "http://host.docker.internal:80",
 });
 
 interface IResponse {
@@ -10,25 +10,25 @@ interface IResponse {
   data: any;
 }
 
-axiosInstance.interceptors.request.use((config) => {
-  const storage = localStorage.getItem("bms-storage-auth") || "";
-  const token = storage ? JSON.parse(storage).token : "";
-  if (token) {
-    config.headers["Authorization"] = `bearer ${token}`;
-  }
-  return config;
-});
+// axiosInstance.interceptors.request.use((config) => {
+//   const storage = localStorage.getItem("bms-storage-auth") || "";
+//   const token = storage ? JSON.parse(storage).token : "";
+//   if (token) {
+//     config.headers["Authorization"] = `bearer ${token}`;
+//   }
+//   return config;
+// });
 
-axiosInstance.interceptors.response.use(
-  (res) => {
-    return {
-      ...res.data,
-    };
-  },
-  (err) => {
-    return Promise.reject(err.response.data);
-  }
-);
+// axiosInstance.interceptors.response.use(
+//   (res) => {
+//     return {
+//       ...res.data,
+//     };
+//   },
+//   (err) => {
+//     return Promise.reject(err.response.data);
+//   }
+// );
 
 class Http {
   post(path: string, body: any, option?: any) {
